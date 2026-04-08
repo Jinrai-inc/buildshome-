@@ -19,7 +19,7 @@ get_header();
 <section class="section section--white">
   <div class="container">
     <?php
-    // サンプルデータ
+    // サンプルデータ（投稿がない場合のフォールバック）
     $sample_voices = [
         ['name' => 'T.S 様', 'type' => '中古マンション購入', 'area' => '川崎市多摩区', 'rating' => 5,
          'comment' => '初めての不動産購入で不安でしたが、物件探しから契約まで丁寧にサポートしていただきました。地元の情報にも詳しく、周辺環境のことまで教えていただけたのがとても心強かったです。'],
@@ -33,57 +33,56 @@ get_header();
          'comment' => 'リフォーム済みの物件を中心に探していただき、内覧の際には改修箇所を詳しく説明してくれました。引渡し後のアフターフォローも丁寧で、信頼できる不動産会社です。'],
     ];
 
-    $has_voice_data = function_exists('have_rows') && have_rows('voice_list');
+    // voice投稿タイプから取得
+    $voice_posts = get_posts([
+        'post_type'      => 'voice',
+        'posts_per_page' => -1,
+        'post_status'    => 'publish',
+    ]);
+    $has_voice = !empty($voice_posts);
     ?>
 
     <div class="voice-list">
-      <?php if ($has_voice_data) : ?>
-        <?php while (have_rows('voice_list')) : the_row();
-          $name    = get_sub_field('voice_customer_name');
-          $type    = get_sub_field('voice_transaction_type');
-          $area    = get_sub_field('voice_area');
-          $rating  = get_sub_field('voice_rating');
-          $comment = get_sub_field('voice_comment');
-        ?>
-          <div class="voice-card voice-card--full js-fade-up">
-            <div class="voice-card__header">
-              <div class="voice-card__stars">
-                <?php for ($i = 0; $i < 5; $i++) : ?>
-                  <span class="voice-card__star <?php echo $i < $rating ? 'is-active' : ''; ?>">&#9733;</span>
-                <?php endfor; ?>
+      <?php if ($has_voice) :
+          foreach ($voice_posts as $vp) : ?>
+            <div class="voice-card voice-card--full js-fade-up">
+              <div class="voice-card__header">
+                <div class="voice-card__stars">
+                  <?php $rating = get_post_meta($vp->ID, 'voice_rating', true) ?: 5;
+                  for ($i = 0; $i < 5; $i++) : ?>
+                    <span class="voice-card__star <?php echo $i < $rating ? 'is-active' : ''; ?>">&#9733;</span>
+                  <?php endfor; ?>
+                </div>
+                <div class="voice-card__meta">
+                  <span class="voice-card__name"><?php echo esc_html(get_post_meta($vp->ID, 'voice_customer_name', true)); ?></span>
+                  <?php $vtype = get_post_meta($vp->ID, 'voice_transaction_type', true); if ($vtype) : ?>
+                    <span class="voice-card__type"><?php echo esc_html($vtype); ?></span>
+                  <?php endif; ?>
+                  <?php $varea = get_post_meta($vp->ID, 'voice_area', true); if ($varea) : ?>
+                    <span class="voice-card__area"><?php echo esc_html($varea); ?></span>
+                  <?php endif; ?>
+                </div>
               </div>
-              <div class="voice-card__meta">
-                <span class="voice-card__name"><?php echo esc_html($name); ?></span>
-                <?php if ($type) : ?>
-                  <span class="voice-card__type"><?php echo esc_html($type); ?></span>
-                <?php endif; ?>
-                <?php if ($area) : ?>
-                  <span class="voice-card__area"><?php echo esc_html($area); ?></span>
-                <?php endif; ?>
-              </div>
+              <p class="voice-card__comment"><?php echo esc_html(wp_strip_all_tags($vp->post_content)); ?></p>
             </div>
-            <p class="voice-card__comment"><?php echo esc_html($comment); ?></p>
-          </div>
-        <?php endwhile; ?>
-      <?php else :
-          // サンプルデータを表示
-          foreach ($sample_voices as $voice) :
-      ?>
-          <div class="voice-card voice-card--full js-fade-up">
-            <div class="voice-card__header">
-              <div class="voice-card__stars">
-                <?php for ($i = 0; $i < 5; $i++) : ?>
-                  <span class="voice-card__star <?php echo $i < $voice['rating'] ? 'is-active' : ''; ?>">&#9733;</span>
-                <?php endfor; ?>
+      <?php endforeach;
+      else :
+          foreach ($sample_voices as $voice) : ?>
+            <div class="voice-card voice-card--full js-fade-up">
+              <div class="voice-card__header">
+                <div class="voice-card__stars">
+                  <?php for ($i = 0; $i < 5; $i++) : ?>
+                    <span class="voice-card__star <?php echo $i < $voice['rating'] ? 'is-active' : ''; ?>">&#9733;</span>
+                  <?php endfor; ?>
+                </div>
+                <div class="voice-card__meta">
+                  <span class="voice-card__name"><?php echo esc_html($voice['name']); ?></span>
+                  <span class="voice-card__type"><?php echo esc_html($voice['type']); ?></span>
+                  <span class="voice-card__area"><?php echo esc_html($voice['area']); ?></span>
+                </div>
               </div>
-              <div class="voice-card__meta">
-                <span class="voice-card__name"><?php echo esc_html($voice['name']); ?></span>
-                <span class="voice-card__type"><?php echo esc_html($voice['type']); ?></span>
-                <span class="voice-card__area"><?php echo esc_html($voice['area']); ?></span>
-              </div>
+              <p class="voice-card__comment"><?php echo esc_html($voice['comment']); ?></p>
             </div>
-            <p class="voice-card__comment"><?php echo esc_html($voice['comment']); ?></p>
-          </div>
       <?php endforeach;
       endif; ?>
     </div>

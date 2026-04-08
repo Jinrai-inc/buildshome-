@@ -30,8 +30,12 @@ require_once get_template_directory() . '/inc/enqueue.php';
 require_once get_template_directory() . '/inc/property-query.php';
 require_once get_template_directory() . '/inc/admin-customization.php';
 require_once get_template_directory() . '/inc/breadcrumb.php';
+require_once get_template_directory() . '/inc/customizer.php';
 
-// ACF フィールドが存在する場合
-if (file_exists(get_template_directory() . '/inc/acf-fields.php')) {
+// ACF PRO がある場合のみフィールド登録（オプション）
+if (function_exists('acf_add_local_field_group') && file_exists(get_template_directory() . '/inc/acf-fields.php')) {
     require_once get_template_directory() . '/inc/acf-fields.php';
 }
+
+// ── 物件カスタムフィールド用メタボックス（ACF なし環境用）──
+require_once get_template_directory() . '/inc/property-metabox.php';

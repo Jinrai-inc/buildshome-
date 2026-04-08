@@ -1,43 +1,30 @@
 <?php get_header();
 
-// ── ACF フィールド取得（デフォルト値付き）──
-$fp_id = get_the_ID();
+// ── カスタマイザーから値を取得（デフォルト値付き）──
+$hero_bg_type   = bh_get('bh_hero_bg_type', 'gradient');
+$hero_bg_image  = bh_get('bh_hero_bg_image', '');
+$hero_overlay   = bh_get('bh_hero_overlay', 55);
+$hero_subtitle  = bh_get('bh_hero_subtitle', 'Builds Home — 川崎・多摩エリアの不動産');
+$hero_title     = bh_get('bh_hero_title', "当たり前の豊かさを追求し、\n創造し続ける");
+$hero_desc      = bh_get('bh_hero_desc', '不動産を通じて、人々が安心して暮らせる空間と心地よい生活を提供することをお約束します。');
+$hero_cta1_text = bh_get('bh_hero_cta1_text', '物件を探す');
+$hero_cta1_url  = bh_get('bh_hero_cta1_url', '') ?: home_url('/property/');
+$hero_cta2_text = bh_get('bh_hero_cta2_text', 'ご相談はこちら');
+$hero_cta2_url  = bh_get('bh_hero_cta2_url', '') ?: home_url('/contact/');
 
-// ヒーロー
-$hero_bg_type    = get_field('hero_bg_type', $fp_id) ?: 'gradient';
-$hero_bg_image   = get_field('hero_bg_image', $fp_id);
-$hero_overlay    = get_field('hero_overlay_opacity', $fp_id);
-$hero_overlay    = ($hero_overlay !== '' && $hero_overlay !== null) ? intval($hero_overlay) : 55;
-$hero_subtitle   = get_field('hero_subtitle', $fp_id) ?: 'Builds Home — 川崎・多摩エリアの不動産';
-$hero_title      = get_field('hero_title', $fp_id) ?: '当たり前の豊かさを追求し、創造し続ける';
-$hero_desc       = get_field('hero_description', $fp_id) ?: '不動産を通じて、人々が安心して暮らせる空間と心地よい生活を提供することをお約束します。';
-$hero_cta1_text  = get_field('hero_cta1_text', $fp_id) ?: '物件を探す';
-$hero_cta1_url   = get_field('hero_cta1_url', $fp_id) ?: home_url('/property/');
-$hero_cta2_text  = get_field('hero_cta2_text', $fp_id) ?: 'ご相談はこちら';
-$hero_cta2_url   = get_field('hero_cta2_url', $fp_id) ?: home_url('/contact/');
+$show_property = bh_get('bh_show_property', true);
+$show_reason   = bh_get('bh_show_reason', true);
+$show_loan     = bh_get('bh_show_loan', true);
+$show_voice    = bh_get('bh_show_voice', true);
+$show_column   = bh_get('bh_show_column', true);
+$show_cta      = bh_get('bh_show_cta', true);
 
-// セクション表示
-$show_property = get_field('show_property_section', $fp_id);
-$show_reason   = get_field('show_reason_section', $fp_id);
-$show_loan     = get_field('show_loan_section', $fp_id);
-$show_voice    = get_field('show_voice_section', $fp_id);
-$show_column   = get_field('show_column_section', $fp_id);
-$show_cta      = get_field('show_cta_section', $fp_id);
-
-// ACF未設定時はすべて表示
-if ($show_property === null) $show_property = true;
-if ($show_reason === null)   $show_reason = true;
-if ($show_loan === null)     $show_loan = true;
-if ($show_voice === null)    $show_voice = true;
-if ($show_column === null)   $show_column = true;
-if ($show_cta === null)      $show_cta = true;
-
-// ヒーロー背景スタイル
-$hero_style = '';
+// ヒーロー CSS クラス
 $hero_class = 'hero';
+$hero_style = '';
 if ($hero_bg_type === 'image' && $hero_bg_image) {
-    $hero_style = 'background-image: url(' . esc_url($hero_bg_image['url']) . ');';
     $hero_class .= ' hero--image';
+    $hero_style = 'background-image: url(' . esc_url($hero_bg_image) . ');';
 }
 ?>
 
@@ -100,8 +87,7 @@ if ($show_property) : ?>
               get_template_part('template-parts/property-card');
           endwhile;
           wp_reset_postdata();
-      else :
-      ?>
+      else : ?>
         <p class="no-results">現在、物件情報を準備中です。</p>
       <?php endif; ?>
     </div>
@@ -118,11 +104,9 @@ if ($show_property) : ?>
 // 選ばれる理由
 // ========================================
 if ($show_reason) :
-    $has_custom_reasons = function_exists('have_rows') && have_rows('reasons_list', $fp_id);
-    // デフォルトの理由データ
     $default_reasons = [
-        ['title' => "地域密着の\n豊富な物件情報", 'text' => '川崎市多摩区を中心に、地元ならではのネットワークで豊富な物件情報をご提供。レインズ掲載前の物件もいち早くご紹介いたします。'],
-        ['title' => "経験豊富な\nスタッフが対応", 'text' => '宅地建物取引士の資格を持つスタッフが、物件のご案内からローン相談、契約手続きまで一貫してサポートいたします。'],
+        ['title' => "地域密着の\n豊富な物件情報",  'text' => '川崎市多摩区を中心に、地元ならではのネットワークで豊富な物件情報をご提供。レインズ掲載前の物件もいち早くご紹介いたします。'],
+        ['title' => "経験豊富な\nスタッフが対応",   'text' => '宅地建物取引士の資格を持つスタッフが、物件のご案内からローン相談、契約手続きまで一貫してサポートいたします。'],
         ['title' => "購入後も安心の\nアフターサポート", 'text' => 'お引渡し後も住まいに関するご相談を承ります。リフォームや売却のご相談など、末永いお付き合いをお約束します。'],
     ];
 ?>
@@ -134,27 +118,23 @@ if ($show_reason) :
     </div>
 
     <div class="reasons-grid js-fade-up">
-      <?php if ($has_custom_reasons) : ?>
-        <?php $num = 0; while (have_rows('reasons_list', $fp_id)) : the_row(); $num++; ?>
-          <div class="reason-card">
-            <?php $icon = get_sub_field('reason_icon'); if ($icon) : ?>
-              <img src="<?php echo esc_url($icon['url']); ?>" alt="" class="reason-card__icon" loading="lazy">
-            <?php else : ?>
-              <span class="reason-card__number"><?php echo str_pad($num, 2, '0', STR_PAD_LEFT); ?></span>
-            <?php endif; ?>
-            <h3 class="reason-card__title"><?php echo nl2br(esc_html(get_sub_field('reason_title'))); ?></h3>
-            <p class="reason-card__text"><?php echo esc_html(get_sub_field('reason_text')); ?></p>
-          </div>
-        <?php endwhile; ?>
-      <?php else :
-          foreach ($default_reasons as $i => $reason) : ?>
-          <div class="reason-card">
-            <span class="reason-card__number"><?php echo str_pad($i + 1, 2, '0', STR_PAD_LEFT); ?></span>
-            <h3 class="reason-card__title"><?php echo nl2br(esc_html($reason['title'])); ?></h3>
-            <p class="reason-card__text"><?php echo esc_html($reason['text']); ?></p>
-          </div>
-        <?php endforeach;
-      endif; ?>
+      <?php for ($i = 1; $i <= 3; $i++) :
+          $custom_title = get_theme_mod("bh_reason_{$i}_title", '');
+          $custom_text  = get_theme_mod("bh_reason_{$i}_text", '');
+          $custom_icon  = get_theme_mod("bh_reason_{$i}_icon", '');
+          $r_title = $custom_title ?: $default_reasons[$i-1]['title'];
+          $r_text  = $custom_text ?: $default_reasons[$i-1]['text'];
+      ?>
+        <div class="reason-card">
+          <?php if ($custom_icon) : ?>
+            <img src="<?php echo esc_url($custom_icon); ?>" alt="" class="reason-card__icon" loading="lazy">
+          <?php else : ?>
+            <span class="reason-card__number"><?php echo str_pad($i, 2, '0', STR_PAD_LEFT); ?></span>
+          <?php endif; ?>
+          <h3 class="reason-card__title"><?php echo nl2br(esc_html($r_title)); ?></h3>
+          <p class="reason-card__text"><?php echo esc_html($r_text); ?></p>
+        </div>
+      <?php endfor; ?>
     </div>
   </div>
 </section>
@@ -183,24 +163,22 @@ if ($show_loan) : ?>
 // お客様の声（サンプルデータ付き）
 // ========================================
 if ($show_voice) :
-    // 手動データがあるか確認
-    $has_voice_data = function_exists('have_rows') && have_rows('voice_top_list', $fp_id);
-
-    // サンプルデータ（ACF未入力時に表示）
     $sample_voices = [
-        [
-            'name' => 'T.S 様', 'type' => '中古マンション購入', 'area' => '川崎市多摩区', 'rating' => 5,
-            'comment' => '初めての不動産購入で不安でしたが、物件探しから契約まで丁寧にサポートしていただきました。地元の情報にも詳しく、周辺環境のことまで教えていただけたのがとても心強かったです。',
-        ],
-        [
-            'name' => 'M.K 様', 'type' => '新築戸建購入', 'area' => '川崎市高津区', 'rating' => 5,
-            'comment' => '子どもの学校区を考慮した物件を複数ご提案いただき、理想の住まいに出会えました。住宅ローンの相談にも親身に対応してくださり、安心して購入を決断できました。',
-        ],
-        [
-            'name' => 'A.Y 様', 'type' => '中古戸建購入', 'area' => '稲城市', 'rating' => 4,
-            'comment' => '予算内で希望エリアの物件を見つけるのは難しいと思っていましたが、レインズに掲載される前の物件を紹介していただき驚きました。地域密着ならではの強みだと感じました。',
-        ],
+        ['name' => 'T.S 様', 'type' => '中古マンション購入', 'area' => '川崎市多摩区', 'rating' => 5,
+         'comment' => '初めての不動産購入で不安でしたが、物件探しから契約まで丁寧にサポートしていただきました。地元の情報にも詳しく、周辺環境のことまで教えていただけたのがとても心強かったです。'],
+        ['name' => 'M.K 様', 'type' => '新築戸建購入', 'area' => '川崎市高津区', 'rating' => 5,
+         'comment' => '子どもの学校区を考慮した物件を複数ご提案いただき、理想の住まいに出会えました。住宅ローンの相談にも親身に対応してくださり、安心して購入を決断できました。'],
+        ['name' => 'A.Y 様', 'type' => '中古戸建購入', 'area' => '稲城市', 'rating' => 4,
+         'comment' => '予算内で希望エリアの物件を見つけるのは難しいと思っていましたが、レインズに掲載される前の物件を紹介していただき驚きました。地域密着ならではの強みだと感じました。'],
     ];
+
+    // お客様の声投稿タイプがある場合はそこから取得、なければサンプル
+    $voice_posts = get_posts([
+        'post_type'      => 'voice',
+        'posts_per_page' => 3,
+        'post_status'    => 'publish',
+    ]);
+    $has_voice_posts = !empty($voice_posts);
 ?>
 <section class="section section--alt">
   <div class="container">
@@ -210,19 +188,17 @@ if ($show_voice) :
     </div>
 
     <div class="voice-grid js-fade-up">
-      <?php if ($has_voice_data) : ?>
-        <?php $v_count = 0; while (have_rows('voice_top_list', $fp_id)) : the_row();
-            if ($v_count >= 3) break; $v_count++;
-        ?>
-          <?php get_template_part('template-parts/voice-card', null, [
-              'name'    => get_sub_field('voice_customer_name'),
-              'type'    => get_sub_field('voice_transaction_type'),
-              'area'    => get_sub_field('voice_area'),
-              'rating'  => get_sub_field('voice_rating'),
-              'comment' => get_sub_field('voice_comment'),
-          ]); ?>
-        <?php endwhile; ?>
-      <?php else :
+      <?php if ($has_voice_posts) :
+          foreach ($voice_posts as $vp) :
+              get_template_part('template-parts/voice-card', null, [
+                  'name'    => get_post_meta($vp->ID, 'voice_customer_name', true),
+                  'type'    => get_post_meta($vp->ID, 'voice_transaction_type', true),
+                  'area'    => get_post_meta($vp->ID, 'voice_area', true),
+                  'rating'  => get_post_meta($vp->ID, 'voice_rating', true) ?: 5,
+                  'comment' => $vp->post_content ?: get_post_meta($vp->ID, 'voice_comment', true),
+              ]);
+          endforeach;
+      else :
           foreach ($sample_voices as $voice) :
               get_template_part('template-parts/voice-card', null, $voice);
           endforeach;
@@ -277,8 +253,7 @@ if ($show_column) : ?>
       <?php
           endwhile;
           wp_reset_postdata();
-      else :
-      ?>
+      else : ?>
         <p class="no-results">記事を準備中です。</p>
       <?php endif; ?>
     </div>
@@ -288,37 +263,10 @@ if ($show_column) : ?>
 
 <?php
 // ========================================
-// フリーセクション（管理画面から追加）
-// ========================================
-if (function_exists('have_rows') && have_rows('free_sections', $fp_id)) :
-    while (have_rows('free_sections', $fp_id)) : the_row();
-        $sec_bg = get_sub_field('section_bg') === 'alt' ? 'section--alt' : 'section--white';
-?>
-<section class="section <?php echo esc_attr($sec_bg); ?>">
-  <div class="container">
-    <?php $title_en = get_sub_field('section_title_en'); $title_ja = get_sub_field('section_title_ja'); ?>
-    <?php if ($title_ja || $title_en) : ?>
-      <div class="section-title js-fade-up">
-        <?php if ($title_en) : ?><span class="section-title__en"><?php echo esc_html($title_en); ?></span><?php endif; ?>
-        <?php if ($title_ja) : ?><span class="section-title__ja"><?php echo esc_html($title_ja); ?></span><?php endif; ?>
-      </div>
-    <?php endif; ?>
-    <div class="free-section__content entry-content js-fade-up">
-      <?php echo get_sub_field('section_content'); ?>
-    </div>
-  </div>
-</section>
-<?php
-    endwhile;
-endif;
-?>
-
-<?php
-// ========================================
 // CTA バナー
 // ========================================
 if ($show_cta) :
-    get_template_part('template-parts/cta-banner', null, ['page_id' => $fp_id]);
+    get_template_part('template-parts/cta-banner');
 endif;
 ?>
 

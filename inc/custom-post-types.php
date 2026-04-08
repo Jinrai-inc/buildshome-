@@ -40,6 +40,24 @@ function builds_home_register_post_types() {
         'show_in_rest' => true,
     ]);
 
+    // お客様の声 CPT
+    register_post_type('voice', [
+        'labels' => [
+            'name'          => 'お客様の声',
+            'singular_name' => 'お客様の声',
+            'add_new'       => '声を追加',
+            'add_new_item'  => 'お客様の声を追加',
+            'edit_item'     => 'お客様の声を編集',
+            'menu_name'     => 'お客様の声',
+        ],
+        'public'       => false,
+        'show_ui'      => true,
+        'supports'     => ['title', 'editor'],
+        'menu_icon'    => 'dashicons-format-quote',
+        'show_in_rest' => true,
+        'menu_position' => 7,
+    ]);
+
     // エリアタクソノミー
     register_taxonomy('property_area', 'property', [
         'labels' => [

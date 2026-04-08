@@ -27,6 +27,37 @@ function builds_home_register_post_types() {
         'menu_position' => 5,
     ]);
 
+    // お知らせ CPT
+    register_post_type('news', [
+        'labels' => [
+            'name'          => 'お知らせ',
+            'singular_name' => 'お知らせ',
+            'add_new'       => 'お知らせを追加',
+            'add_new_item'  => 'お知らせを追加',
+            'edit_item'     => 'お知らせを編集',
+            'menu_name'     => 'お知らせ',
+        ],
+        'public'       => true,
+        'has_archive'  => true,
+        'rewrite'      => ['slug' => 'news'],
+        'supports'     => ['title', 'editor', 'thumbnail'],
+        'menu_icon'    => 'dashicons-megaphone',
+        'show_in_rest' => true,
+        'menu_position' => 6,
+    ]);
+
+    // お知らせカテゴリー
+    register_taxonomy('news_category', 'news', [
+        'labels' => [
+            'name'          => 'お知らせカテゴリー',
+            'singular_name' => 'カテゴリー',
+            'menu_name'     => 'カテゴリー',
+        ],
+        'hierarchical' => true,
+        'rewrite'      => ['slug' => 'news-category'],
+        'show_in_rest' => true,
+    ]);
+
     // 物件種別タクソノミー
     register_taxonomy('property_type', 'property', [
         'labels' => [

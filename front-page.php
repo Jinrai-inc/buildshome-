@@ -12,9 +12,11 @@ $hero_cta1_url  = bh_get('bh_hero_cta1_url', '') ?: home_url('/property/');
 $hero_cta2_text = bh_get('bh_hero_cta2_text', 'ご相談はこちら');
 $hero_cta2_url  = bh_get('bh_hero_cta2_url', '') ?: home_url('/contact/');
 
+$show_news     = bh_get('bh_show_news', true);
 $show_property = bh_get('bh_show_property', true);
 $show_reason   = bh_get('bh_show_reason', true);
 $show_loan     = bh_get('bh_show_loan', true);
+$show_instagram = bh_get('bh_show_instagram', true);
 $show_voice    = bh_get('bh_show_voice', true);
 $show_column   = bh_get('bh_show_column', true);
 $show_cta      = bh_get('bh_show_cta', true);
@@ -56,6 +58,46 @@ if ($hero_bg_type === 'image' && $hero_bg_image) {
     </div>
   </div>
 </section>
+
+<?php
+// ========================================
+// お知らせ欄
+// ========================================
+if ($show_news) :
+    $news_posts = new WP_Query([
+        'post_type'      => 'news',
+        'posts_per_page' => 5,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ]);
+    if ($news_posts->have_posts()) :
+?>
+<section class="section section--white news-section">
+  <div class="container">
+    <div class="section-title js-fade-up">
+      <span class="section-title__en">News</span>
+      <span class="section-title__ja">お知らせ</span>
+    </div>
+
+    <div class="news-list js-fade-up">
+      <?php while ($news_posts->have_posts()) : $news_posts->the_post();
+          $news_cats = get_the_terms(get_the_ID(), 'news_category');
+      ?>
+        <a href="<?php the_permalink(); ?>" class="news-list__item">
+          <time class="news-list__date" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date('Y.m.d'); ?></time>
+          <?php if ($news_cats && !is_wp_error($news_cats)) : ?>
+            <span class="news-list__cat"><?php echo esc_html($news_cats[0]->name); ?></span>
+          <?php endif; ?>
+          <span class="news-list__title"><?php the_title(); ?></span>
+        </a>
+      <?php endwhile; wp_reset_postdata(); ?>
+    </div>
+  </div>
+</section>
+<?php
+    endif;
+endif;
+?>
 
 <?php
 // ========================================
@@ -157,6 +199,57 @@ if ($show_loan) : ?>
   </div>
 </section>
 <?php endif; ?>
+
+<?php
+// ========================================
+// Instagram
+// ========================================
+if ($show_instagram) :
+    $ig_url = get_theme_mod('bh_instagram_url', '');
+    $ig_images = [];
+    for ($ig = 1; $ig <= 6; $ig++) {
+        $img = get_theme_mod("bh_instagram_image_{$ig}", '');
+        if ($img) {
+            $ig_images[] = [
+                'image' => $img,
+                'link'  => get_theme_mod("bh_instagram_link_{$ig}", '') ?: $ig_url,
+            ];
+        }
+    }
+    if (!empty($ig_images)) :
+?>
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-title js-fade-up">
+      <span class="section-title__en">Instagram</span>
+      <span class="section-title__ja">最新の投稿</span>
+    </div>
+
+    <div class="instagram-grid js-fade-up">
+      <?php foreach ($ig_images as $ig_item) : ?>
+        <a href="<?php echo esc_url($ig_item['link'] ?: '#'); ?>" class="instagram-grid__item" target="_blank" rel="noopener noreferrer">
+          <img src="<?php echo esc_url($ig_item['image']); ?>" alt="Instagram投稿" loading="lazy">
+          <div class="instagram-grid__overlay">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+        </a>
+      <?php endforeach; ?>
+    </div>
+
+    <?php if ($ig_url) : ?>
+      <div class="section__more js-fade-up">
+        <a href="<?php echo esc_url($ig_url); ?>" class="btn btn--ghost-dark" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          もっと見る
+        </a>
+      </div>
+    <?php endif; ?>
+  </div>
+</section>
+<?php
+    endif;
+endif;
+?>
 
 <?php
 // ========================================

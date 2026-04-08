@@ -113,9 +113,11 @@ function builds_home_customize_register($wp_customize) {
     ]);
 
     $sections_list = [
+        'news'     => 'お知らせ欄',
         'property' => '新着・おすすめ物件',
         'reason'   => '選ばれる理由',
         'loan'     => 'ローンシミュレーション',
+        'instagram' => 'Instagram',
         'voice'    => 'お客様の声',
         'column'   => 'コラム最新記事',
         'cta'      => 'お問い合わせCTA',
@@ -187,6 +189,37 @@ function builds_home_customize_register($wp_customize) {
         'type'        => 'url',
         'description' => '空欄 → /contact/',
     ]);
+
+    // ----------------------------------------
+    // セクション: Instagram
+    // ----------------------------------------
+    $wp_customize->add_section('bh_instagram', [
+        'title' => 'Instagram連携',
+        'panel' => 'bh_front_page',
+    ]);
+
+    $wp_customize->add_setting('bh_instagram_url', ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
+    $wp_customize->add_control('bh_instagram_url', [
+        'label'       => 'InstagramプロフィールURL',
+        'section'     => 'bh_instagram',
+        'type'        => 'url',
+        'description' => '例: https://www.instagram.com/builds_home/',
+    ]);
+
+    for ($ig = 1; $ig <= 6; $ig++) {
+        $wp_customize->add_setting("bh_instagram_image_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
+        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "bh_instagram_image_{$ig}", [
+            'label'   => "投稿画像 {$ig}",
+            'section' => 'bh_instagram',
+        ]));
+        $wp_customize->add_setting("bh_instagram_link_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
+        $wp_customize->add_control("bh_instagram_link_{$ig}", [
+            'label'       => "投稿{$ig}のリンク（任意）",
+            'section'     => 'bh_instagram',
+            'type'        => 'url',
+            'description' => '空欄の場合はプロフィールURLに遷移',
+        ]);
+    }
 
     // ----------------------------------------
     // セクション: 会社情報

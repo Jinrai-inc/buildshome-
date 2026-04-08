@@ -202,18 +202,18 @@ if ($show_loan) : ?>
 
 <?php
 // ========================================
-// Instagram（oEmbed埋め込み）
+// Instagram（埋め込みコード方式）
 // ========================================
 if ($show_instagram) :
     $ig_url = get_theme_mod('bh_instagram_url', '');
-    $ig_posts = [];
+    $ig_embeds = [];
     for ($ig = 1; $ig <= 6; $ig++) {
-        $post_url = get_theme_mod("bh_instagram_post_{$ig}", '');
-        if ($post_url) {
-            $ig_posts[] = $post_url;
+        $code = get_theme_mod("bh_instagram_embed_{$ig}", '');
+        if (trim($code)) {
+            $ig_embeds[] = $code;
         }
     }
-    $has_ig_posts = !empty($ig_posts);
+    $has_ig_embeds = !empty($ig_embeds);
 ?>
 <section class="section section--alt">
   <div class="container">
@@ -223,10 +223,10 @@ if ($show_instagram) :
     </div>
 
     <div class="instagram-embed-grid js-fade-up">
-      <?php if ($has_ig_posts) : ?>
-        <?php foreach ($ig_posts as $post_url) : ?>
+      <?php if ($has_ig_embeds) : ?>
+        <?php foreach ($ig_embeds as $embed_code) : ?>
           <div class="instagram-embed-grid__item">
-            <?php echo wp_oembed_get($post_url, ['maxwidth' => 400]); ?>
+            <?php echo $embed_code; ?>
           </div>
         <?php endforeach; ?>
       <?php else : ?>
@@ -245,8 +245,8 @@ if ($show_instagram) :
           もっと見る
         </a>
       </div>
-    <?php elseif (!$has_ig_posts) : ?>
-      <p class="instagram-embed-grid__hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から投稿URLを設定してください</p>
+    <?php elseif (!$has_ig_embeds) : ?>
+      <p class="instagram-embed-grid__hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から埋め込みコードを設定してください</p>
     <?php endif; ?>
   </div>
 </section>

@@ -207,12 +207,15 @@ function builds_home_customize_register($wp_customize) {
     ]);
 
     for ($ig = 1; $ig <= 6; $ig++) {
-        $wp_customize->add_setting("bh_instagram_post_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
-        $wp_customize->add_control("bh_instagram_post_{$ig}", [
-            'label'       => "投稿URL {$ig}",
+        $wp_customize->add_setting("bh_instagram_embed_{$ig}", [
+            'default'           => '',
+            'sanitize_callback' => 'builds_home_sanitize_embed',
+        ]);
+        $wp_customize->add_control("bh_instagram_embed_{$ig}", [
+            'label'       => "埋め込みコード {$ig}",
             'section'     => 'bh_instagram',
-            'type'        => 'url',
-            'description' => 'Instagram投稿のURLを貼り付け',
+            'type'        => 'textarea',
+            'description' => 'Instagramの投稿 > 「...」> 「埋め込み」> コードをコピーして貼り付け',
         ]);
     }
 
@@ -244,6 +247,20 @@ add_action('customize_register', 'builds_home_customize_register');
 // Boolean sanitize helper
 function builds_home_sanitize_bool($val) {
     return (bool) $val;
+}
+
+// Instagram embed sanitize (allow blockquote + script tags from instagram.com)
+function builds_home_sanitize_embed($val) {
+    return wp_kses($val, [
+        'blockquote' => ['class' => true, 'data-instgrm-captioned' => true, 'data-instgrm-permalink' => true, 'data-instgrm-version' => true, 'style' => true],
+        'div'        => ['style' => true],
+        'a'          => ['href' => true, 'style' => true, 'target' => true, 'rel' => true],
+        'p'          => ['style' => true],
+        'img'        => ['src' => true, 'alt' => true, 'style' => true],
+        'svg'        => ['*' => true],
+        'span'       => ['style' => true],
+        'script'     => ['async' => true, 'src' => true],
+    ]);
 }
 
 // ── ヘルパー: カスタマイザー値を安全に取得 ──

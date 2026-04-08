@@ -11,6 +11,8 @@ function builds_home_setup() {
     add_theme_support('post-thumbnails');
     add_theme_support('html5', ['search-form', 'comment-form', 'comment-list', 'gallery', 'caption']);
     add_theme_support('custom-logo');
+    add_theme_support('editor-styles');
+    add_editor_style('assets/css/editor-style.css');
 
     register_nav_menus([
         'primary' => 'メインメニュー',
@@ -42,6 +44,9 @@ require_once get_template_directory() . '/inc/property-metabox.php';
 
 // ── サンプルページ自動生成 ──
 require_once get_template_directory() . '/inc/sample-pages.php';
+
+// ── ブロックパターン登録 ──
+require_once get_template_directory() . '/inc/block-patterns.php';
 
 // ── メニュー未設定時のフォールバック ──
 function builds_home_fallback_menu() {

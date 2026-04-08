@@ -1,0 +1,328 @@
+/**
+ * ブロックエディタ用スタイル
+ * テーマのデザインをエディタ内でもプレビュー可能にする
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap');
+
+:root {
+  --color-primary: #1a3a4a;
+  --color-primary-light: #2d5a6b;
+  --color-primary-dark: #0f2027;
+  --color-accent: #b8860b;
+  --color-accent-light: #d4a017;
+  --color-bg: #faf8f5;
+  --color-bg-alt: #f9f7f3;
+  --color-bg-white: #ffffff;
+  --color-border: #f0ede8;
+  --color-border-dark: #e0dbd4;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-text-muted: #888888;
+  --color-error: #c62828;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+  --font-heading: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 50%;
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 2px 16px rgba(0,0,0,0.04);
+  --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.editor-styles-wrapper {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--color-text);
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* ── Reason Cards ── */
+.editor-styles-wrapper .reasons-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.editor-styles-wrapper .reason-card {
+  background: var(--color-bg-white);
+  border-radius: var(--radius-xl);
+  padding: 36px 28px;
+  box-shadow: var(--shadow-md);
+}
+
+.editor-styles-wrapper .reason-card__number {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 700;
+  color: #e8e2d8;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.editor-styles-wrapper .reason-card__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.editor-styles-wrapper .reason-card__text {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+/* ── Staff Cards ── */
+.editor-styles-wrapper .staff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.editor-styles-wrapper .staff-card {
+  display: flex;
+  gap: 20px;
+  background: var(--color-bg-white);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-styles-wrapper .staff-card__photo img,
+.editor-styles-wrapper .staff-card__photo-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  background: var(--color-bg-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor-styles-wrapper .staff-card__name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.editor-styles-wrapper .staff-card__role {
+  font-size: 12px;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.editor-styles-wrapper .staff-card__license {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.editor-styles-wrapper .staff-card__desc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* ── Company Table ── */
+.editor-styles-wrapper .company-table__dl {
+  max-width: 800px;
+}
+
+.editor-styles-wrapper .company-table__row {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.editor-styles-wrapper .company-table__row dt {
+  flex: 0 0 140px;
+  padding: 14px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-alt);
+}
+
+.editor-styles-wrapper .company-table__row dd {
+  flex: 1;
+  padding: 14px 16px;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* ── Mission ── */
+.editor-styles-wrapper .company-mission {
+  text-align: center;
+  margin-bottom: 48px;
+  padding: 40px 20px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-xl);
+}
+
+.editor-styles-wrapper .company-mission__quote {
+  border: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.editor-styles-wrapper .company-mission__quote p {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.editor-styles-wrapper .company-mission__text {
+  color: var(--color-text-secondary);
+}
+
+/* ── Message Layout ── */
+.editor-styles-wrapper .message-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 48px;
+}
+
+.editor-styles-wrapper .message-layout__photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editor-styles-wrapper .message-layout__name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.editor-styles-wrapper .message-layout__text {
+  font-size: 15px;
+  line-height: 2;
+}
+
+.editor-styles-wrapper .message-layout__text p {
+  margin-bottom: 20px;
+}
+
+/* ── Voice Card ── */
+.editor-styles-wrapper .voice-card {
+  background: var(--color-bg-white);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 20px;
+}
+
+.editor-styles-wrapper .voice-card__star {
+  color: #ddd;
+  font-size: 16px;
+}
+
+.editor-styles-wrapper .voice-card__star.is-active {
+  color: var(--color-accent);
+}
+
+.editor-styles-wrapper .voice-card__comment {
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 12px 0 16px;
+}
+
+.editor-styles-wrapper .voice-card__meta {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.editor-styles-wrapper .voice-card__name {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.editor-styles-wrapper .voice-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── CTA Banner ── */
+.editor-styles-wrapper .cta-banner {
+  padding: 40px 28px;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  text-align: center;
+  border-radius: var(--radius-xl);
+}
+
+.editor-styles-wrapper .cta-banner__text {
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 20px;
+}
+
+.editor-styles-wrapper .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.editor-styles-wrapper .btn--primary {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+  color: #fff;
+}
+
+/* ── Section Title ── */
+.editor-styles-wrapper .section-title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.editor-styles-wrapper .section-title__en {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 8px;
+}
+
+.editor-styles-wrapper .section-title__ja {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* ── Reason Card Icon ── */
+.editor-styles-wrapper .reason-card__icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}

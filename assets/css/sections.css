@@ -52,6 +52,19 @@
   margin-bottom: 16px;
 }
 
+.reason-card__icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+/* Free Section */
+.free-section__content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .reason-card__title {
   font-size: 18px;
   font-weight: 700;

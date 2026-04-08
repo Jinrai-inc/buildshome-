@@ -106,17 +106,17 @@
   box-shadow: var(--shadow-hover);
 }
 
-/* Preview (clipped) */
+/* Preview (clipped) - ヘッダー+画像+いいねボタンが見える高さ */
 .ig-grid__preview {
   position: relative;
-  height: 320px;
+  height: 580px;
   overflow: hidden;
   transition: height 0.4s ease;
 }
 
 @media (max-width: 767px) {
   .ig-grid__preview {
-    height: 260px;
+    height: 480px;
   }
 }
 
@@ -194,7 +194,7 @@
 
 /* Placeholder */
 .ig-grid__placeholder {
-  height: 320px;
+  height: 580px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,7 +204,7 @@
 
 @media (max-width: 767px) {
   .ig-grid__placeholder {
-    height: 260px;
+    height: 480px;
   }
 }
 

@@ -203,21 +203,16 @@ function builds_home_customize_register($wp_customize) {
         'label'       => 'InstagramプロフィールURL',
         'section'     => 'bh_instagram',
         'type'        => 'url',
-        'description' => '例: https://www.instagram.com/builds_home/',
+        'description' => '「もっと見る」ボタンのリンク先。例: https://www.instagram.com/builds_home/',
     ]);
 
     for ($ig = 1; $ig <= 6; $ig++) {
-        $wp_customize->add_setting("bh_instagram_image_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
-        $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, "bh_instagram_image_{$ig}", [
-            'label'   => "投稿画像 {$ig}",
-            'section' => 'bh_instagram',
-        ]));
-        $wp_customize->add_setting("bh_instagram_link_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
-        $wp_customize->add_control("bh_instagram_link_{$ig}", [
-            'label'       => "投稿{$ig}のリンク（任意）",
+        $wp_customize->add_setting("bh_instagram_post_{$ig}", ['default' => '', 'sanitize_callback' => 'esc_url_raw']);
+        $wp_customize->add_control("bh_instagram_post_{$ig}", [
+            'label'       => "投稿URL {$ig}",
             'section'     => 'bh_instagram',
             'type'        => 'url',
-            'description' => '空欄の場合はプロフィールURLに遷移',
+            'description' => 'Instagram投稿のURLを貼り付け',
         ]);
     }
 

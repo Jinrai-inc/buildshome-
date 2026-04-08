@@ -141,6 +141,66 @@
   opacity: 1;
 }
 
+/* ========================================
+   Instagram Embed Grid (oEmbed)
+   ======================================== */
+.instagram-embed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 767px) {
+  .instagram-embed-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.instagram-embed-grid__item {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+/* Instagram埋め込みのiframeをレスポンシブに */
+.instagram-embed-grid__item iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* 埋め込みブロックの余白・幅を調整 */
+.instagram-embed-grid__item .instagram-media {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+.instagram-embed-grid__item blockquote {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.instagram-embed-grid__placeholder {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.instagram-embed-grid__hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 20px;
+}
+
 .no-results {
   text-align: center;
   color: var(--color-text-muted);

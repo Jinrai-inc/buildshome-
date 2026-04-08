@@ -202,21 +202,18 @@ if ($show_loan) : ?>
 
 <?php
 // ========================================
-// Instagram
+// Instagram（oEmbed埋め込み）
 // ========================================
 if ($show_instagram) :
     $ig_url = get_theme_mod('bh_instagram_url', '');
-    $ig_images = [];
+    $ig_posts = [];
     for ($ig = 1; $ig <= 6; $ig++) {
-        $img = get_theme_mod("bh_instagram_image_{$ig}", '');
-        if ($img) {
-            $ig_images[] = [
-                'image' => $img,
-                'link'  => get_theme_mod("bh_instagram_link_{$ig}", '') ?: $ig_url,
-            ];
+        $post_url = get_theme_mod("bh_instagram_post_{$ig}", '');
+        if ($post_url) {
+            $ig_posts[] = $post_url;
         }
     }
-    $has_ig_images = !empty($ig_images);
+    $has_ig_posts = !empty($ig_posts);
 ?>
 <section class="section section--alt">
   <div class="container">
@@ -225,19 +222,16 @@ if ($show_instagram) :
       <span class="section-title__ja">最新の投稿</span>
     </div>
 
-    <div class="instagram-grid js-fade-up">
-      <?php if ($has_ig_images) : ?>
-        <?php foreach ($ig_images as $ig_item) : ?>
-          <a href="<?php echo esc_url($ig_item['link'] ?: '#'); ?>" class="instagram-grid__item" target="_blank" rel="noopener noreferrer">
-            <img src="<?php echo esc_url($ig_item['image']); ?>" alt="Instagram投稿" loading="lazy">
-            <div class="instagram-grid__overlay">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </div>
-          </a>
+    <div class="instagram-embed-grid js-fade-up">
+      <?php if ($has_ig_posts) : ?>
+        <?php foreach ($ig_posts as $post_url) : ?>
+          <div class="instagram-embed-grid__item">
+            <?php echo wp_oembed_get($post_url, ['maxwidth' => 400]); ?>
+          </div>
         <?php endforeach; ?>
       <?php else : ?>
         <?php for ($ph = 0; $ph < 6; $ph++) : ?>
-          <div class="instagram-grid__item instagram-grid__placeholder">
+          <div class="instagram-embed-grid__item instagram-embed-grid__placeholder">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </div>
         <?php endfor; ?>
@@ -251,8 +245,8 @@ if ($show_instagram) :
           もっと見る
         </a>
       </div>
-    <?php else : ?>
-      <p class="instagram-grid__setup-hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から画像とURLを設定してください</p>
+    <?php elseif (!$has_ig_posts) : ?>
+      <p class="instagram-embed-grid__hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から投稿URLを設定してください</p>
     <?php endif; ?>
   </div>
 </section>

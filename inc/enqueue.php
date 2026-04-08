@@ -84,6 +84,16 @@ function builds_home_enqueue_assets() {
             );
         }
     }
+    // Instagram embed script (front page)
+    if (is_front_page()) {
+        wp_enqueue_script(
+            'instagram-embed',
+            'https://www.instagram.com/embed.js',
+            [],
+            null,
+            true
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'builds_home_enqueue_assets');
 

@@ -13,11 +13,10 @@
   <div class="site-header__inner container">
     <!-- Logo -->
     <a href="<?php echo esc_url(home_url('/')); ?>" class="site-header__logo">
-      <?php if (has_custom_logo()) : ?>
-        <?php
-        $logo_id  = get_theme_mod('custom_logo');
-        $logo_url = wp_get_attachment_image_url($logo_id, 'full');
-        ?>
+      <?php if (has_custom_logo()) :
+          $logo_id  = get_theme_mod('custom_logo');
+          $logo_url = wp_get_attachment_image_url($logo_id, 'full');
+      ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" class="site-header__logo-img">
       <?php else : ?>
         <span class="site-header__logo-icon">B</span>
@@ -27,18 +26,15 @@
 
     <!-- Desktop Navigation -->
     <nav class="site-header__nav" id="main-nav">
-      <ul class="site-header__menu">
-        <li><a href="<?php echo esc_url(home_url('/property/')); ?>">物件一覧</a></li>
-        <li><a href="<?php echo esc_url(home_url('/reason/')); ?>">選ばれる理由</a></li>
-        <li><a href="<?php echo esc_url(home_url('/staff/')); ?>">スタッフ</a></li>
-        <li><a href="<?php echo esc_url(home_url('/voice/')); ?>">お客様の声</a></li>
-        <li><a href="<?php echo esc_url(home_url('/company/')); ?>">会社概要</a></li>
-        <li>
-          <a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary btn--sm site-header__cta">
-            お問い合わせ
-          </a>
-        </li>
-      </ul>
+      <?php
+      wp_nav_menu([
+          'theme_location' => 'primary',
+          'container'       => false,
+          'menu_class'      => 'site-header__menu',
+          'fallback_cb'     => 'builds_home_fallback_menu',
+          'depth'           => 1,
+      ]);
+      ?>
     </nav>
 
     <!-- Mobile Hamburger -->
@@ -52,14 +48,15 @@
   <!-- Mobile Overlay Menu -->
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav class="mobile-menu__nav">
-      <ul class="mobile-menu__list">
-        <li><a href="<?php echo esc_url(home_url('/property/')); ?>">物件一覧</a></li>
-        <li><a href="<?php echo esc_url(home_url('/reason/')); ?>">選ばれる理由</a></li>
-        <li><a href="<?php echo esc_url(home_url('/staff/')); ?>">スタッフ</a></li>
-        <li><a href="<?php echo esc_url(home_url('/voice/')); ?>">お客様の声</a></li>
-        <li><a href="<?php echo esc_url(home_url('/company/')); ?>">会社概要</a></li>
-        <li><a href="<?php echo esc_url(home_url('/contact/')); ?>" class="btn btn--primary">お問い合わせ</a></li>
-      </ul>
+      <?php
+      wp_nav_menu([
+          'theme_location' => 'primary',
+          'container'       => false,
+          'menu_class'      => 'mobile-menu__list',
+          'fallback_cb'     => 'builds_home_fallback_menu_mobile',
+          'depth'           => 1,
+      ]);
+      ?>
     </nav>
   </div>
 </header>

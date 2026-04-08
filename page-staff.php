@@ -18,43 +18,43 @@ get_header();
 
 <section class="section section--white">
   <div class="container">
-    <div class="staff-grid">
-      <?php if (function_exists('have_rows') && have_rows('staff_list')) : ?>
-        <?php while (have_rows('staff_list')) : the_row();
-          $name  = get_sub_field('staff_name');
-          $role  = get_sub_field('staff_role');
-          $license = get_sub_field('staff_license');
-          $desc  = get_sub_field('staff_description');
-          $photo = get_sub_field('staff_photo');
-        ?>
+    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+      <?php if (trim(get_the_content())) : ?>
+        <div class="entry-content js-fade-up">
+          <?php the_content(); ?>
+        </div>
+      <?php else : ?>
+        <!-- デフォルト表示（本文が空の場合） -->
+        <div class="staff-grid">
           <div class="staff-card js-fade-up">
             <div class="staff-card__photo">
-              <?php if ($photo) : ?>
-                <img src="<?php echo esc_url($photo['sizes']['thumbnail'] ?? $photo['url']); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
-              <?php else : ?>
-                <div class="staff-card__photo-placeholder">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-              <?php endif; ?>
+              <div class="staff-card__photo-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
             </div>
             <div class="staff-card__body">
-              <h3 class="staff-card__name"><?php echo esc_html($name); ?></h3>
-              <?php if ($role) : ?>
-                <p class="staff-card__role"><?php echo esc_html($role); ?></p>
-              <?php endif; ?>
-              <?php if ($license) : ?>
-                <p class="staff-card__license"><?php echo esc_html($license); ?></p>
-              <?php endif; ?>
-              <?php if ($desc) : ?>
-                <p class="staff-card__desc"><?php echo esc_html($desc); ?></p>
-              <?php endif; ?>
+              <h3 class="staff-card__name">一ノ瀬 諒</h3>
+              <p class="staff-card__role">代表取締役</p>
+              <p class="staff-card__license">宅地建物取引士</p>
+              <p class="staff-card__desc">川崎市多摩区で生まれ育ち、この街の魅力を知り尽くしています。お客様一人ひとりのライフスタイルに合った最適な住まいをご提案いたします。</p>
             </div>
           </div>
-        <?php endwhile; ?>
-      <?php else : ?>
-        <p class="no-results">スタッフ情報を準備中です。</p>
+          <div class="staff-card js-fade-up" data-delay="0.1">
+            <div class="staff-card__photo">
+              <div class="staff-card__photo-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+            </div>
+            <div class="staff-card__body">
+              <h3 class="staff-card__name">スタッフ名</h3>
+              <p class="staff-card__role">営業担当</p>
+              <p class="staff-card__license">宅地建物取引士</p>
+              <p class="staff-card__desc">物件のご案内からローン相談まで、お客様に寄り添ったサポートを心がけています。お気軽にご相談ください。</p>
+            </div>
+          </div>
+        </div>
       <?php endif; ?>
-    </div>
+    <?php endwhile; endif; ?>
   </div>
 </section>
 

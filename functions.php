@@ -39,3 +39,47 @@ if (function_exists('acf_add_local_field_group') && file_exists(get_template_dir
 
 // ── 物件カスタムフィールド用メタボックス（ACF なし環境用）──
 require_once get_template_directory() . '/inc/property-metabox.php';
+
+// ── サンプルページ自動生成 ──
+require_once get_template_directory() . '/inc/sample-pages.php';
+
+// ── メニュー未設定時のフォールバック ──
+function builds_home_fallback_menu() {
+    echo '<ul class="site-header__menu">';
+    echo '<li><a href="' . esc_url(home_url('/property/')) . '">物件一覧</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/reason/')) . '">選ばれる理由</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/staff/')) . '">スタッフ</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/voice/')) . '">お客様の声</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/company/')) . '">会社概要</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/contact/')) . '" class="btn btn--primary btn--sm site-header__cta">お問い合わせ</a></li>';
+    echo '</ul>';
+}
+
+function builds_home_fallback_menu_mobile() {
+    echo '<ul class="mobile-menu__list">';
+    echo '<li><a href="' . esc_url(home_url('/property/')) . '">物件一覧</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/reason/')) . '">選ばれる理由</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/staff/')) . '">スタッフ</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/voice/')) . '">お客様の声</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/company/')) . '">会社概要</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/contact/')) . '" class="btn btn--primary">お問い合わせ</a></li>';
+    echo '</ul>';
+}
+
+// ── wp_nav_menu の「お問い合わせ」にCTAクラスを付与 ──
+function builds_home_nav_menu_css_class($classes, $item) {
+    if (in_array('menu-cta', $classes) || strpos($item->title, 'お問い合わせ') !== false) {
+        $classes[] = 'menu-item-cta';
+    }
+    return $classes;
+}
+add_filter('nav_menu_css_class', 'builds_home_nav_menu_css_class', 10, 2);
+
+function builds_home_nav_menu_link_attributes($atts, $item) {
+    if (in_array('menu-item-cta', $item->classes ?? []) || strpos($item->title, 'お問い合わせ') !== false) {
+        $existing = $atts['class'] ?? '';
+        $atts['class'] = trim($existing . ' btn btn--primary btn--sm site-header__cta');
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'builds_home_nav_menu_link_attributes', 10, 2);

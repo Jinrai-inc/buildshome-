@@ -6,13 +6,20 @@
       <!-- Company Info -->
       <div class="site-footer__col">
         <div class="site-footer__logo">
-          <span class="site-footer__logo-icon">B</span>
-          <span class="site-footer__logo-text">ビルズホーム</span>
+          <?php if (has_custom_logo()) :
+              $logo_id  = get_theme_mod('custom_logo');
+              $logo_url = wp_get_attachment_image_url($logo_id, 'full');
+          ?>
+            <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" class="site-footer__logo-img">
+          <?php else : ?>
+            <span class="site-footer__logo-icon">B</span>
+            <span class="site-footer__logo-text">ビルズホーム</span>
+          <?php endif; ?>
         </div>
         <address class="site-footer__address">
           <p>〒214-0001<br>神奈川県川崎市多摩区菅1丁目9-21<br>東和稲田堤第三ビル102</p>
           <p class="site-footer__tel">
-            <a href="tel:044-400-0562">TEL: 044-400-0562</a>
+            <a href="tel:<?php echo esc_attr($bh_tel); ?>">TEL: <?php echo esc_html($bh_tel); ?></a>
           </p>
           <p>FAX: 044-400-0561</p>
         </address>

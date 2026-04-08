@@ -13,8 +13,16 @@
   <div class="site-header__inner container">
     <!-- Logo -->
     <a href="<?php echo esc_url(home_url('/')); ?>" class="site-header__logo">
-      <span class="site-header__logo-icon">B</span>
-      <span class="site-header__logo-text">ビルズホーム</span>
+      <?php if (has_custom_logo()) : ?>
+        <?php
+        $logo_id  = get_theme_mod('custom_logo');
+        $logo_url = wp_get_attachment_image_url($logo_id, 'full');
+        ?>
+        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>" class="site-header__logo-img">
+      <?php else : ?>
+        <span class="site-header__logo-icon">B</span>
+        <span class="site-header__logo-text">ビルズホーム</span>
+      <?php endif; ?>
     </a>
 
     <!-- Desktop Navigation -->

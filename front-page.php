@@ -216,7 +216,7 @@ if ($show_instagram) :
             ];
         }
     }
-    if (!empty($ig_images)) :
+    $has_ig_images = !empty($ig_images);
 ?>
 <section class="section section--alt">
   <div class="container">
@@ -226,14 +226,22 @@ if ($show_instagram) :
     </div>
 
     <div class="instagram-grid js-fade-up">
-      <?php foreach ($ig_images as $ig_item) : ?>
-        <a href="<?php echo esc_url($ig_item['link'] ?: '#'); ?>" class="instagram-grid__item" target="_blank" rel="noopener noreferrer">
-          <img src="<?php echo esc_url($ig_item['image']); ?>" alt="Instagram投稿" loading="lazy">
-          <div class="instagram-grid__overlay">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      <?php if ($has_ig_images) : ?>
+        <?php foreach ($ig_images as $ig_item) : ?>
+          <a href="<?php echo esc_url($ig_item['link'] ?: '#'); ?>" class="instagram-grid__item" target="_blank" rel="noopener noreferrer">
+            <img src="<?php echo esc_url($ig_item['image']); ?>" alt="Instagram投稿" loading="lazy">
+            <div class="instagram-grid__overlay">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+          </a>
+        <?php endforeach; ?>
+      <?php else : ?>
+        <?php for ($ph = 0; $ph < 6; $ph++) : ?>
+          <div class="instagram-grid__item instagram-grid__placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </div>
-        </a>
-      <?php endforeach; ?>
+        <?php endfor; ?>
+      <?php endif; ?>
     </div>
 
     <?php if ($ig_url) : ?>
@@ -243,13 +251,12 @@ if ($show_instagram) :
           もっと見る
         </a>
       </div>
+    <?php else : ?>
+      <p class="instagram-grid__setup-hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から画像とURLを設定してください</p>
     <?php endif; ?>
   </div>
 </section>
-<?php
-    endif;
-endif;
-?>
+<?php endif; ?>
 
 <?php
 // ========================================

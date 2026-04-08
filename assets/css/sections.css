@@ -101,6 +101,20 @@
   background: var(--color-bg-alt);
 }
 
+.instagram-grid__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border);
+}
+
+.instagram-grid__setup-hint {
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: 20px;
+}
+
 .instagram-grid__item img {
   width: 100%;
   height: 100%;

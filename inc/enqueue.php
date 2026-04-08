@@ -45,6 +45,7 @@ function builds_home_enqueue_assets() {
         'mobile-menu'     => 'assets/js/mobile-menu.js',
         'animations'      => 'assets/js/animations.js',
         'favorites'       => 'assets/js/favorites.js',
+        'accordion'       => 'assets/js/accordion.js',
     ];
 
     foreach ($js_files as $handle => $path) {

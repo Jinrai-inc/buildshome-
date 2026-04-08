@@ -77,121 +77,135 @@
 }
 
 /* ========================================
-   Instagram Grid
+   Instagram Embed Grid (Accordion Cards)
    ======================================== */
-.instagram-grid {
+.ig-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
 @media (max-width: 767px) {
-  .instagram-grid {
+  .ig-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 }
 
-.instagram-grid__item {
+/* Card - 閉じた状態: 高さ統一 */
+.ig-grid__card {
   position: relative;
-  display: block;
-  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  border-radius: var(--radius-md);
-  background: var(--color-bg-alt);
+  background: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s;
 }
 
-.instagram-grid__placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-border);
+.ig-grid__card:hover {
+  box-shadow: var(--shadow-hover);
 }
 
-.instagram-grid__setup-hint {
-  text-align: center;
-  font-size: 13px;
-  color: var(--color-text-muted);
-  margin-top: 20px;
-}
-
-.instagram-grid__item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-}
-
-.instagram-grid__item:hover img {
-  transform: scale(1.06);
-}
-
-.instagram-grid__overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.instagram-grid__item:hover .instagram-grid__overlay {
-  opacity: 1;
-}
-
-/* ========================================
-   Instagram Embed Grid (oEmbed)
-   ======================================== */
-.instagram-embed-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+/* Preview (clipped) */
+.ig-grid__preview {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+  transition: height 0.4s ease;
 }
 
 @media (max-width: 767px) {
-  .instagram-embed-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+  .ig-grid__preview {
+    height: 260px;
   }
 }
 
-.instagram-embed-grid__item {
-  min-width: 0;
-  overflow: hidden;
-  border-radius: var(--radius-md);
+/* 開いた状態 */
+.ig-grid__card.is-expanded .ig-grid__preview {
+  height: auto;
+  overflow: visible;
 }
 
-/* Instagram埋め込みのiframeをレスポンシブに */
-.instagram-embed-grid__item iframe {
+/* 閉じた状態のグラデーションマスク */
+.ig-grid__preview::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(transparent, var(--color-bg-white));
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.ig-grid__card.is-expanded .ig-grid__preview::after {
+  opacity: 0;
+}
+
+/* 埋め込みコンテンツのレスポンシブ */
+.ig-grid__embed-wrap {
+  min-width: 0;
+}
+
+.ig-grid__embed-wrap iframe {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
 }
 
-/* 埋め込みブロックの余白・幅を調整 */
-.instagram-embed-grid__item .instagram-media {
+.ig-grid__embed-wrap .instagram-media,
+.ig-grid__embed-wrap blockquote {
   min-width: 0 !important;
   max-width: 100% !important;
-  margin: 0 !important;
-}
-
-.instagram-embed-grid__item blockquote {
-  min-width: 0 !important;
-  max-width: 100% !important;
+  width: 100% !important;
   margin: 0 !important;
   border: none !important;
-  padding: 0 !important;
 }
 
-.instagram-embed-grid__placeholder {
-  aspect-ratio: 1;
+/* 展開ボタン */
+.ig-grid__expand {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-dark);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, background 0.3s;
+  color: var(--color-text-muted);
+}
+
+.ig-grid__expand:hover {
+  background: var(--color-bg-alt);
+}
+
+.ig-grid__card.is-expanded .ig-grid__expand svg {
+  transform: rotate(180deg);
+}
+
+/* Placeholder */
+.ig-grid__placeholder {
+  height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--color-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
+}
+
+@media (max-width: 767px) {
+  .ig-grid__placeholder {
+    height: 260px;
+  }
 }
 
 .instagram-embed-grid__hint {

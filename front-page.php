@@ -222,16 +222,23 @@ if ($show_instagram) :
       <span class="section-title__ja">最新の投稿</span>
     </div>
 
-    <div class="instagram-embed-grid js-fade-up">
+    <div class="ig-grid js-fade-up">
       <?php if ($has_ig_embeds) : ?>
         <?php foreach ($ig_embeds as $embed_code) : ?>
-          <div class="instagram-embed-grid__item">
-            <?php echo $embed_code; ?>
+          <div class="ig-grid__card">
+            <div class="ig-grid__preview">
+              <div class="ig-grid__embed-wrap">
+                <?php echo $embed_code; ?>
+              </div>
+              <button class="ig-grid__expand" aria-label="投稿を展開">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
           </div>
         <?php endforeach; ?>
       <?php else : ?>
         <?php for ($ph = 0; $ph < 6; $ph++) : ?>
-          <div class="instagram-embed-grid__item instagram-embed-grid__placeholder">
+          <div class="ig-grid__card ig-grid__placeholder">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </div>
         <?php endfor; ?>

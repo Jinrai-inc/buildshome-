@@ -230,7 +230,7 @@ function builds_home_create_sample_pages() {
                     'menu-item-object'    => 'page',
                     'menu-item-type'      => 'post_type',
                     'menu-item-status'    => 'publish',
-                    'menu-item-classes'   => ['menu-cta'],
+                    'menu-item-classes'   => 'menu-cta',
                 ]);
             }
 

@@ -1,0 +1,128 @@
+/* ========================================
+   Property Filter
+   ======================================== */
+.property-filter {
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.property-filter__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .property-filter__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .property-filter__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.property-filter__label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.property-filter__select,
+.property-filter__input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-white);
+  color: var(--color-text);
+  transition: border-color 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.property-filter__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%23888'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+.property-filter__select:focus,
+.property-filter__input:focus {
+  outline: none;
+  border-color: var(--color-primary-light);
+}
+
+.property-filter__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.property-list__count {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin-bottom: 20px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 48px;
+}
+
+.pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.pagination .page-numbers:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pagination .page-numbers.current {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* No Results Block */
+.no-results-block {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.no-results-block svg {
+  margin-bottom: 16px;
+}
+
+.no-results-block p {
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}

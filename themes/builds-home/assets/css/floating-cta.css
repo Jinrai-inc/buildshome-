@@ -1,0 +1,48 @@
+/* ========================================
+   Floating CTA
+   ======================================== */
+.floating-cta {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-cta__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  color: #fff;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  box-shadow: var(--shadow-hover);
+}
+
+.floating-cta__btn:hover {
+  transform: scale(1.1);
+}
+
+.floating-cta__phone {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  animation: pulse 2.5s infinite;
+}
+
+.floating-cta__line {
+  background-color: var(--color-line-green);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+.floating-cta__phone:hover {
+  animation: none;
+  transform: scale(1.1);
+}

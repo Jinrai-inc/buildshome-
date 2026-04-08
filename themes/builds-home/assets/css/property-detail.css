@@ -1,0 +1,237 @@
+/* ========================================
+   Property Detail
+   ======================================== */
+.property-detail {
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+
+.property-detail__section-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-border);
+}
+
+/* Gallery */
+.property-detail__gallery {
+  margin-bottom: 28px;
+}
+
+.property-detail__main-image {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-alt);
+  margin-bottom: 12px;
+}
+
+.property-detail__main-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.property-detail__noimage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+}
+
+.property-detail__thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.property-detail__thumb {
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  transition: border-color 0.3s;
+}
+
+.property-detail__thumb.is-active {
+  border-color: var(--color-primary);
+}
+
+.property-detail__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Header */
+.property-detail__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.property-detail__header .badge {
+  margin-right: 6px;
+  margin-bottom: 8px;
+}
+
+.property-detail__title {
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.4;
+}
+
+.property-detail__fav {
+  position: static;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+/* Price */
+.property-detail__price {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-accent);
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+/* Feature Tags */
+.property-detail__features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.property-detail__feature-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+/* Info Table */
+.property-detail__info {
+  margin-bottom: 36px;
+}
+
+.property-detail__table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+@media (max-width: 767px) {
+  .property-detail__table {
+    grid-template-columns: 1fr;
+  }
+}
+
+.property-detail__table-row {
+  display: flex;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.property-detail__table-label {
+  flex: 0 0 120px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-alt);
+}
+
+.property-detail__table-value {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Description */
+.property-detail__desc {
+  margin-bottom: 36px;
+}
+
+.property-detail__desc-text {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--color-text);
+}
+
+/* Floor Plan */
+.property-detail__floorplan {
+  margin-bottom: 36px;
+}
+
+.property-detail__floorplan img {
+  max-width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* Map */
+.property-detail__map {
+  margin-bottom: 36px;
+}
+
+.property-detail__map-wrap {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.property-detail__map-wrap iframe {
+  width: 100%;
+  height: 350px;
+  border: 0;
+}
+
+/* Loan */
+.property-detail__loan {
+  margin-bottom: 36px;
+}
+
+.property-detail__loan-body {
+  margin-top: 16px;
+}
+
+/* CTA */
+.property-detail__cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  padding: 28px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-xl);
+}
+
+.property-detail__cta .btn {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Related */
+.property-detail__related {
+  margin-top: 48px;
+}

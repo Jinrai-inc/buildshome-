@@ -1,0 +1,222 @@
+/* ========================================
+   Header
+   ======================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.35s ease;
+  background: transparent;
+}
+
+.site-header.is-scrolled {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+/* Logo */
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  z-index: 101;
+}
+
+.site-header__logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.site-header__logo-text {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  transition: color 0.35s ease;
+}
+
+.site-header.is-scrolled .site-header__logo-text {
+  color: var(--color-text);
+}
+
+/* Navigation */
+.site-header__nav {
+  display: none;
+}
+
+.site-header__menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.site-header__menu a {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.35s ease, opacity 0.3s;
+  text-decoration: none;
+}
+
+.site-header__menu a:hover {
+  opacity: 0.8;
+}
+
+.site-header.is-scrolled .site-header__menu a {
+  color: var(--color-text);
+}
+
+.site-header.is-scrolled .site-header__menu a:hover {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.site-header__cta.btn {
+  color: #fff !important;
+  font-size: 12px;
+  padding: 8px 20px;
+}
+
+/* Hamburger */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 101;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.hamburger__line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.35s ease;
+  border-radius: 2px;
+}
+
+.site-header.is-scrolled .hamburger__line {
+  background-color: var(--color-text);
+}
+
+.hamburger.is-active .hamburger__line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background-color: #fff;
+}
+
+.hamburger.is-active .hamburger__line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.is-active .hamburger__line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background-color: #fff;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-primary-dark);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.mobile-menu.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu__list {
+  text-align: center;
+}
+
+.mobile-menu__list li {
+  margin-bottom: 24px;
+}
+
+.mobile-menu__list a {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  transition: opacity 0.3s;
+}
+
+.mobile-menu__list a:hover {
+  opacity: 0.8;
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .site-header__nav {
+    display: block;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+}
+
+/* Non-transparent header for inner pages */
+body:not(.home) .site-header {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+}
+
+body:not(.home) .site-header__logo-text {
+  color: var(--color-text);
+}
+
+body:not(.home) .site-header__menu a {
+  color: var(--color-text);
+}
+
+body:not(.home) .site-header__menu a:hover {
+  color: var(--color-primary);
+}
+
+body:not(.home) .hamburger__line {
+  background-color: var(--color-text);
+}

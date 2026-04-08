@@ -1,0 +1,99 @@
+/* ========================================
+   Loan Simulator
+   ======================================== */
+.loan-simulator {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loan-simulator__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .loan-simulator__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.loan-simulator__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loan-simulator__field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.loan-simulator__field input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-white);
+  color: var(--color-text);
+  transition: border-color 0.3s;
+}
+
+.loan-simulator__field input:focus {
+  outline: none;
+  border-color: var(--color-primary-light);
+}
+
+.loan-simulator__calc {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Result */
+.loan-simulator__result-card {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  color: #fff;
+}
+
+.loan-simulator__result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.loan-simulator__result-item:last-child {
+  border-bottom: none;
+}
+
+.loan-simulator__result-label {
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+}
+
+.loan-simulator__result-value {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.loan-simulator__result-value--sub {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.loan-simulator__note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-top: 12px;
+  text-align: center;
+}

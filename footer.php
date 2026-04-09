@@ -2,7 +2,7 @@
 
 <?php
 $bh_tel      = get_theme_mod('bh_tel', '044-400-0562');
-$bh_line_url = get_theme_mod('bh_line_url', '#');
+$bh_line_url = get_theme_mod('bh_sns_line', '') ?: get_theme_mod('bh_line_url', '#');
 ?>
 
 <footer class="site-footer">
@@ -56,6 +56,8 @@ $bh_line_url = get_theme_mod('bh_line_url', '#');
         </ul>
       </div>
     </div>
+
+    <?php get_template_part('template-parts/sns-links', null, ['location' => 'footer']); ?>
   </div>
 
   <div class="site-footer__bottom">

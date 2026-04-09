@@ -1,0 +1,261 @@
+/* ========================================
+   SNS Links - Header
+   ======================================== */
+.header-sns {
+  display: none;
+  align-items: center;
+  gap: 14px;
+  margin-right: 16px;
+}
+
+@media (min-width: 1024px) {
+  .header-sns {
+    display: flex;
+  }
+}
+
+.header-sns a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.7;
+  transition: opacity 0.3s, color 0.35s;
+}
+
+.header-sns a:hover {
+  opacity: 1;
+}
+
+.site-header.is-scrolled .header-sns a,
+body:not(.home) .header-sns a {
+  color: var(--color-text-secondary);
+}
+
+.site-header.is-scrolled .header-sns a:hover,
+body:not(.home) .header-sns a:hover {
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+/* ========================================
+   SNS Links - Footer
+   ======================================== */
+.footer-sns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.footer-sns__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-md);
+  transition: all 0.3s;
+}
+
+.footer-sns__btn:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ========================================
+   Section Subtitle
+   ======================================== */
+.section-subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-top: -36px;
+  margin-bottom: 32px;
+}
+
+/* ========================================
+   Instagram API Feed Grid
+   ======================================== */
+.ig-feed__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 767px) {
+  .ig-feed__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ig-feed__item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+.ig-feed__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.ig-feed__item:hover img {
+  transform: scale(1.08);
+}
+
+.ig-feed__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 58, 74, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ig-feed__item:hover .ig-feed__overlay {
+  opacity: 1;
+}
+
+.ig-feed__empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  padding: 40px;
+}
+
+.btn--sns svg {
+  margin-right: 6px;
+}
+
+/* ========================================
+   TikTok Gallery
+   ======================================== */
+.tiktok-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 1023px) {
+  .tiktok-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .tiktok-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tiktok-gallery__item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tiktok-gallery__thumb {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-dark);
+}
+
+.tiktok-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.tiktok-gallery__item:hover .tiktok-gallery__thumb img {
+  transform: scale(1.05);
+}
+
+.tiktok-gallery__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tiktok-gallery__item:hover .tiktok-gallery__play {
+  opacity: 1;
+}
+
+.tiktok-gallery__title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-top: 8px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   Property Video (Detail Page)
+   ======================================== */
+.property-video {
+  margin: 32px 0;
+  padding: 28px;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-xl);
+}
+
+.property-video__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.property-video__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.property-video__embed--16x9 {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.property-video__embed--16x9 iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.property-video__embed .tiktok-embed {
+  max-width: 100% !important;
+  min-width: 0 !important;
+}

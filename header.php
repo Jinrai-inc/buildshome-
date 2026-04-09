@@ -25,6 +25,7 @@
     </a>
 
     <!-- Desktop Navigation -->
+    <?php get_template_part('template-parts/sns-links', null, ['location' => 'header']); ?>
     <nav class="site-header__nav" id="main-nav">
       <?php
       wp_nav_menu([

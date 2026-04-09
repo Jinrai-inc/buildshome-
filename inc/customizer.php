@@ -116,6 +116,7 @@ function builds_home_customize_register($wp_customize) {
         'news'     => 'お知らせ欄',
         'property' => '新着・おすすめ物件',
         'reason'   => '選ばれる理由',
+        'tiktok'   => 'TikTokギャラリー',
         'loan'     => 'ローンシミュレーション',
         'instagram' => 'Instagram',
         'voice'    => 'お客様の声',

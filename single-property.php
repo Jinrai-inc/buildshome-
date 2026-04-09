@@ -159,6 +159,9 @@ $area_name = $areas ? $areas[0]->name : '';
       </div>
     <?php endif; ?>
 
+    <!-- Video (TikTok / YouTube) -->
+    <?php get_template_part('template-parts/property-video'); ?>
+
     <!-- Map -->
     <?php if ($map_embed) : ?>
       <div class="property-detail__map">

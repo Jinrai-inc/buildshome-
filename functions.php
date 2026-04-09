@@ -33,6 +33,13 @@ require_once get_template_directory() . '/inc/property-query.php';
 require_once get_template_directory() . '/inc/admin-customization.php';
 require_once get_template_directory() . '/inc/breadcrumb.php';
 require_once get_template_directory() . '/inc/customizer.php';
+require_once get_template_directory() . '/inc/customizer-sns.php';
+require_once get_template_directory() . '/inc/video-helpers.php';
+
+// Instagram API 方式を使用する場合のみ
+if (get_theme_mod('bh_instagram_token', '')) {
+    require_once get_template_directory() . '/inc/instagram-api.php';
+}
 
 // ACF PRO がある場合のみフィールド登録（オプション）
 if (function_exists('acf_add_local_field_group') && file_exists(get_template_directory() . '/inc/acf-fields.php')) {

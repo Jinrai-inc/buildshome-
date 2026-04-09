@@ -12,14 +12,15 @@ $hero_cta1_url  = bh_get('bh_hero_cta1_url', '') ?: home_url('/property/');
 $hero_cta2_text = bh_get('bh_hero_cta2_text', 'ご相談はこちら');
 $hero_cta2_url  = bh_get('bh_hero_cta2_url', '') ?: home_url('/contact/');
 
-$show_news     = bh_get('bh_show_news', true);
-$show_property = bh_get('bh_show_property', true);
-$show_reason   = bh_get('bh_show_reason', true);
-$show_loan     = bh_get('bh_show_loan', true);
+$show_news      = bh_get('bh_show_news', true);
+$show_property  = bh_get('bh_show_property', true);
+$show_reason    = bh_get('bh_show_reason', true);
+$show_tiktok    = bh_get('bh_show_tiktok', true);
+$show_loan      = bh_get('bh_show_loan', true);
 $show_instagram = bh_get('bh_show_instagram', true);
-$show_voice    = bh_get('bh_show_voice', true);
-$show_column   = bh_get('bh_show_column', true);
-$show_cta      = bh_get('bh_show_cta', true);
+$show_voice     = bh_get('bh_show_voice', true);
+$show_column    = bh_get('bh_show_column', true);
+$show_cta       = bh_get('bh_show_cta', true);
 
 // ヒーロー CSS クラス
 $hero_class = 'hero';
@@ -184,6 +185,15 @@ if ($show_reason) :
 
 <?php
 // ========================================
+// TikTok ギャラリー
+// ========================================
+if ($show_tiktok) :
+    get_template_part('template-parts/tiktok-gallery');
+endif;
+?>
+
+<?php
+// ========================================
 // ローンシミュレーション
 // ========================================
 if ($show_loan) : ?>
@@ -202,62 +212,12 @@ if ($show_loan) : ?>
 
 <?php
 // ========================================
-// Instagram（埋め込みコード方式）
+// Instagram フィード
 // ========================================
 if ($show_instagram) :
-    $ig_url = get_theme_mod('bh_instagram_url', '');
-    $ig_embeds = [];
-    for ($ig = 1; $ig <= 6; $ig++) {
-        $code = get_theme_mod("bh_instagram_embed_{$ig}", '');
-        if (trim($code)) {
-            $ig_embeds[] = $code;
-        }
-    }
-    $has_ig_embeds = !empty($ig_embeds);
+    get_template_part('template-parts/instagram-feed');
+endif;
 ?>
-<section class="section section--alt">
-  <div class="container">
-    <div class="section-title js-fade-up">
-      <span class="section-title__en">Instagram</span>
-      <span class="section-title__ja">最新の投稿</span>
-    </div>
-
-    <div class="ig-grid js-fade-up">
-      <?php if ($has_ig_embeds) : ?>
-        <?php foreach ($ig_embeds as $embed_code) : ?>
-          <div class="ig-grid__card">
-            <div class="ig-grid__preview">
-              <div class="ig-grid__embed-wrap">
-                <?php echo $embed_code; ?>
-              </div>
-              <button class="ig-grid__expand" aria-label="投稿を展開">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-              </button>
-            </div>
-          </div>
-        <?php endforeach; ?>
-      <?php else : ?>
-        <?php for ($ph = 0; $ph < 6; $ph++) : ?>
-          <div class="ig-grid__card ig-grid__placeholder">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </div>
-        <?php endfor; ?>
-      <?php endif; ?>
-    </div>
-
-    <?php if ($ig_url) : ?>
-      <div class="section__more js-fade-up">
-        <a href="<?php echo esc_url($ig_url); ?>" class="btn btn--ghost-dark" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          もっと見る
-        </a>
-      </div>
-    <?php elseif (!$has_ig_embeds) : ?>
-      <p class="instagram-embed-grid__hint">カスタマイザー &gt; トップページ設定 &gt; Instagram連携 から埋め込みコードを設定してください</p>
-    <?php endif; ?>
-  </div>
-</section>
-<?php endif; ?>
 
 <?php
 // ========================================

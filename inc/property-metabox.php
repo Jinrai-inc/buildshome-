@@ -46,6 +46,9 @@ function builds_home_property_metabox_html($post) {
         ['key' => 'property_map_embed',        'label' => 'Googleマップ iframe', 'type' => 'textarea', 'placeholder' => 'iframeコードを貼り付け'],
         ['key' => 'property_status',           'label' => '公開ステータス',      'type' => 'select',   'options' => ['公開中','商談中','成約済','非公開']],
         ['key' => 'property_reins_id',         'label' => 'レインズ番号',        'type' => 'text',     'placeholder' => ''],
+        ['key' => 'property_tiktok_url',       'label' => 'TikTok動画URL',      'type' => 'text',     'placeholder' => 'https://www.tiktok.com/@user/video/123...'],
+        ['key' => 'property_youtube_url',      'label' => 'YouTube動画URL',     'type' => 'text',     'placeholder' => 'https://www.youtube.com/watch?v=...'],
+        ['key' => 'property_video_title',      'label' => '動画タイトル',         'type' => 'text',     'placeholder' => '空欄時は「物件紹介動画」'],
         ['key' => 'property_is_new',           'label' => 'NEW バッジ',         'type' => 'checkbox'],
         ['key' => 'property_is_featured',      'label' => 'おすすめ',           'type' => 'checkbox'],
     ];
@@ -87,6 +90,7 @@ function builds_home_save_property_meta($post_id) {
         'property_land_area', 'property_building_area', 'property_management_fee',
         'property_repair_fund', 'property_delivery', 'property_transaction_type',
         'property_status', 'property_reins_id',
+        'property_tiktok_url', 'property_youtube_url', 'property_video_title',
     ];
     foreach ($text_fields as $key) {
         if (isset($_POST[$key])) {

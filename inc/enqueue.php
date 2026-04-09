@@ -24,6 +24,7 @@ function builds_home_enqueue_assets() {
         'sections'        => 'assets/css/sections.css',
         'forms'           => 'assets/css/forms.css',
         'floating-cta'    => 'assets/css/floating-cta.css',
+        'sns'             => 'assets/css/sns.css',
         'responsive'      => 'assets/css/responsive.css',
     ];
 
@@ -87,13 +88,15 @@ function builds_home_enqueue_assets() {
     }
     // Instagram embed script (front page)
     if (is_front_page()) {
-        wp_enqueue_script(
-            'instagram-embed',
-            'https://www.instagram.com/embed.js',
-            [],
-            null,
-            true
-        );
+        wp_enqueue_script('instagram-embed', 'https://www.instagram.com/embed.js', [], null, true);
+    }
+
+    // TikTok embed script (property detail with TikTok URL)
+    if (is_singular('property')) {
+        $tiktok_url = get_post_meta(get_the_ID(), 'property_tiktok_url', true);
+        if ($tiktok_url) {
+            wp_enqueue_script('tiktok-embed', 'https://www.tiktok.com/embed.js', [], null, true);
+        }
     }
 }
 add_action('wp_enqueue_scripts', 'builds_home_enqueue_assets');

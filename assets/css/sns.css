@@ -1,11 +1,17 @@
 /* ========================================
-   SNS Links - Header
+   SNS Links - Header (right side)
    ======================================== */
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 101;
+}
+
 .header-sns {
   display: none;
   align-items: center;
-  gap: 14px;
-  margin-right: 16px;
+  gap: 12px;
 }
 
 @media (min-width: 1024px) {
@@ -19,7 +25,7 @@
   align-items: center;
   justify-content: center;
   color: #fff;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.3s, color 0.35s;
 }
 
@@ -29,13 +35,121 @@
 
 .site-header.is-scrolled .header-sns a,
 body:not(.home) .header-sns a {
-  color: var(--color-text-secondary);
+  color: var(--color-text-muted);
 }
 
 .site-header.is-scrolled .header-sns a:hover,
 body:not(.home) .header-sns a:hover {
   color: var(--color-primary);
   opacity: 1;
+}
+
+/* ========================================
+   SNS Links - Mobile Menu
+   ======================================== */
+.mobile-menu__sns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.mobile-menu__sns a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.mobile-menu__sns a:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* ========================================
+   SNS Section (トップページ公式SNSセクション)
+   ======================================== */
+.sns-section__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1023px) {
+  .sns-section__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .sns-section__grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+}
+
+.sns-section__card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s, border-color 0.3s;
+}
+
+.sns-section__card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.sns-section__card--ig:hover { border-color: #e1306c; }
+.sns-section__card--tt:hover { border-color: #000; }
+.sns-section__card--yt:hover { border-color: #ff0000; }
+.sns-section__card--line:hover { border-color: #06C755; }
+
+.sns-section__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  color: var(--color-text-secondary);
+}
+
+.sns-section__card--ig:hover .sns-section__icon { color: #e1306c; }
+.sns-section__card--tt:hover .sns-section__icon { color: #000; }
+.sns-section__card--yt:hover .sns-section__icon { color: #ff0000; }
+.sns-section__card--line:hover .sns-section__icon { color: #06C755; }
+
+.sns-section__name {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.sns-section__desc {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.4;
 }
 
 /* ========================================

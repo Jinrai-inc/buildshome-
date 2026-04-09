@@ -25,7 +25,6 @@
     </a>
 
     <!-- Desktop Navigation -->
-    <?php get_template_part('template-parts/sns-links', null, ['location' => 'header']); ?>
     <nav class="site-header__nav" id="main-nav">
       <?php
       wp_nav_menu([
@@ -38,12 +37,15 @@
       ?>
     </nav>
 
-    <!-- Mobile Hamburger -->
-    <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-      <span class="hamburger__line"></span>
-    </button>
+    <!-- Header Right: SNS + Hamburger -->
+    <div class="site-header__right">
+      <?php get_template_part('template-parts/sns-links', null, ['location' => 'header']); ?>
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile Overlay Menu -->
@@ -58,6 +60,8 @@
           'depth'           => 1,
       ]);
       ?>
+      <!-- Mobile SNS Links -->
+      <?php get_template_part('template-parts/sns-links', null, ['location' => 'mobile']); ?>
     </nav>
   </div>
 </header>
